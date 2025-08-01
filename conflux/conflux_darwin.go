@@ -89,7 +89,7 @@ func (c *conflux) Start(apiBaseURL, anchorToken string, portal bool) error {
 	// Check if the anchor is alive and if not, stop the conflux and exit
 	go func() {
 		<-c.anchor.Ctx.Done()
-		veilnet.Logger.Sugar().Info("Anchor stopped unexpectedly")
+		veilnet.Logger.Sugar().Info("Anchor stopped")
 		os.Exit(1)
 	}()
 
