@@ -99,14 +99,6 @@ func (cmd *Up) Run() error {
 		return err
 	}
 
-	// Check if the anchor is alive and if not, stop the conflux and exit
-	go func() {
-		if !cmd.conflux.IsAnchorAlive() {
-			cmd.conflux.Stop()
-			os.Exit(1)
-		}
-	}()
-
 	// Set up signal handling for graceful shutdown
 	sigChan := make(chan os.Signal, 1)
 	signal.Notify(sigChan, syscall.SIGINT, syscall.SIGTERM)

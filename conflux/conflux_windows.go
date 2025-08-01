@@ -4,7 +4,6 @@
 package conflux
 
 import (
-	"context"
 	_ "embed"
 	"fmt"
 	"net"
@@ -32,20 +31,11 @@ type conflux struct {
 	bypassRoutes     sync.Map
 	ipForwardEnabled bool
 
-	once   sync.Once
-	ctx    context.Context
-	cancel context.CancelFunc
+	once sync.Once
 }
 
 func newConflux() *conflux {
-	ctx, cancel := context.WithCancel(context.Background())
-	anchor := veilnet.NewAnchor()
-	conflux := &conflux{
-		anchor: anchor,
-		ctx:    ctx,
-		cancel: cancel,
-	}
-	return conflux
+	return &conflux{}
 }
 
 func (c *conflux) Start(apiBaseURL, anchorToken string, portal bool) error {
@@ -69,6 +59,9 @@ func (c *conflux) Start(apiBaseURL, anchorToken string, portal bool) error {
 	if err != nil {
 		return err
 	}
+
+	// Create the anchor
+	c.anchor = veilnet.NewAnchor()
 
 	// Start the anchor
 	err = c.StartAnchor(apiBaseURL, anchorToken, portal)
@@ -98,15 +91,22 @@ func (c *conflux) Start(apiBaseURL, anchorToken string, portal bool) error {
 	go c.ingress()
 	go c.egress()
 
+	// Check if the anchor is alive and if not, stop the conflux and exit
+	go func() {
+		<-c.anchor.Ctx.Done()
+		veilnet.Logger.Sugar().Info("Anchor stopped unexpectedly")
+		os.Exit(1)
+	}()
+
 	return nil
 }
 
 func (c *conflux) Stop() {
 	c.once.Do(func() {
-		c.cancel()
 		if c.anchor != nil {
 			c.anchor.Stop()
 		}
+		c.anchor = nil
 		c.CleanHostConfiguraions()
 		c.RemoveBypassRoutes()
 		if c.device != nil {
@@ -128,10 +128,6 @@ func (c *conflux) StartAnchor(apiBaseURL, anchorToken string, portal bool) error
 
 func (c *conflux) StopAnchor() {
 	c.anchor.Stop()
-}
-
-func (c *conflux) IsAnchorAlive() bool {
-	return c.anchor.IsAlive()
 }
 
 func (c *conflux) CreateTUN() error {

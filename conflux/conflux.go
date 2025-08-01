@@ -14,9 +14,6 @@ type Conflux interface {
 	// StopAnchor stops the veilnet anchor
 	StopAnchor()
 
-	// IsAnchorAlive checks if the veilnet anchor is alive
-	IsAnchorAlive() bool
-
 	// CreateTUN creates a TUN device
 	CreateTUN() error
 
