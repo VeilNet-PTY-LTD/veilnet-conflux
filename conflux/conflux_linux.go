@@ -99,7 +99,6 @@ func (c *conflux) Stop() {
 		if c.anchor != nil {
 			c.anchor.Stop()
 		}
-		c.anchor = nil
 		c.CleanHostConfiguraions()
 		c.RemoveBypassRoutes()
 		if c.device != nil {
