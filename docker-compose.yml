@@ -2,7 +2,7 @@ services:
   veilnet-conlux:
     build: .
     container_name: veilnet-conflux
-    image: veilnet/conflux:latest
+    image: veilnet/conflux:dev
     pull_policy: always
     restart: unless-stopped
     privileged: true
