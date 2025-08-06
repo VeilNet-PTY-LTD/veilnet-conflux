@@ -88,6 +88,7 @@ func (c *conflux) Start(apiBaseURL, anchorToken string, portal bool) error {
 	go func() {
 		<-c.anchor.Ctx.Done()
 		veilnet.Logger.Sugar().Info("Anchor stopped")
+		c.Stop()
 		os.Exit(1)
 	}()
 
@@ -219,11 +220,11 @@ func (c *conflux) RemoveBypassRoutes() {
 	})
 }
 
-func (c *conflux) Read(bufs [][]byte, batchSize int) (int, error) {
+func (c *conflux) Read(bufs [][]byte, batchSize int) int {
 	return c.anchor.Read(bufs, batchSize)
 }
 
-func (c *conflux) Write(bufs [][]byte, sizes []int) (int, error) {
+func (c *conflux) Write(bufs [][]byte, sizes []int) int {
 	return c.anchor.Write(bufs, sizes)
 }
 
@@ -235,10 +236,7 @@ func (c *conflux) ingress() {
 			veilnet.Logger.Sugar().Info("Portal ingress stopped")
 			return
 		default:
-			n, err := c.anchor.Read(bufs, c.device.BatchSize())
-			if err != nil {
-				continue
-			}
+			n := c.Read(bufs, c.device.BatchSize())
 			for i := 0; i < n; i++ {
 				newBuf := make([]byte, 16+len(bufs[i]))
 				copy(newBuf[16:], bufs[i])
