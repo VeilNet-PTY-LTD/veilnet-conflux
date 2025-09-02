@@ -8,7 +8,7 @@ import (
 	"github.com/alecthomas/kong"
 )
 
-var version = "1.0.4"
+var version = "1.0.5"
 
 func main() {
 	// Parse the CLI arguments

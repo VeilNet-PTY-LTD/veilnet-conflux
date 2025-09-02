@@ -273,7 +273,9 @@ func (c *conflux) ingress() {
 				copy(newBuf[16:], bufs[i])
 				bufs[i] = newBuf
 			}
-			c.device.Write(bufs[:n], 16)
+			if n > 0 {
+				c.device.Write(bufs[:n], 16)
+			}
 		}
 	}
 }
@@ -303,7 +305,9 @@ func (c *conflux) egress() {
 				veilnet.Logger.Sugar().Errorf("failed to read from TUN device: %v", err)
 				continue
 			}
-			c.Write(bufs[:n], sizes[:n])
+			if n > 0 {
+				c.Write(bufs[:n], sizes[:n])
+			}
 		}
 	}
 }

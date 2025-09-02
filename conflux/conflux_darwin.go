@@ -235,7 +235,9 @@ func (c *conflux) ingress() {
 				copy(newBuf[16:], bufs[i])
 				bufs[i] = newBuf
 			}
-			c.device.Write(bufs[:n], 16)
+			if n > 0 {
+				c.device.Write(bufs[:n], 16)
+			}
 		}
 	}
 }
@@ -264,7 +266,9 @@ func (c *conflux) egress() {
 			if err != nil {
 				continue
 			}
-			c.Write(bufs[:n], sizes[:n])
+			if n > 0 {
+				c.Write(bufs[:n], sizes[:n])
+			}
 		}
 	}
 }
