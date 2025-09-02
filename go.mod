@@ -1,8 +1,8 @@
-module github.com/VeilNet-PTY-LTD/veilnet-conflux
+module github.com/veil-net/conflux
 
 go 1.25.0
 
-require github.com/VeilNet-PTY-LTD/veilnet v0.0.0-20250711100000-000000000000
+require github.com/veil-net/anchor v0.0.0
 
 require golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
 
@@ -25,7 +25,7 @@ require (
 	github.com/pion/rtcp v1.2.15 // indirect
 	github.com/pion/rtp v1.8.21 // indirect
 	github.com/pion/sctp v1.8.39 // indirect
-	github.com/pion/sdp/v3 v3.0.15 // indirect
+	github.com/pion/sdp/v3 v3.0.16 // indirect
 	github.com/pion/srtp/v3 v3.0.7 // indirect
 	github.com/pion/stun/v3 v3.0.0 // indirect
 	github.com/pion/transport/v3 v3.0.7 // indirect
@@ -45,4 +45,4 @@ require (
 	google.golang.org/protobuf v1.36.8 // indirect
 )
 
-replace github.com/VeilNet-PTY-LTD/veilnet => ../veilnet
+replace github.com/veil-net/anchor => ../anchor

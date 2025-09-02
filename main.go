@@ -3,8 +3,8 @@ package main
 import (
 	"os"
 
-	veilnet "github.com/VeilNet-PTY-LTD/veilnet"
-	"github.com/VeilNet-PTY-LTD/veilnet-conflux/conflux"
+	veilnet "github.com/veil-net/anchor"
+	"github.com/veil-net/conflux/conflux"
 	"github.com/alecthomas/kong"
 )
 

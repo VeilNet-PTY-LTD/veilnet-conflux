@@ -11,7 +11,7 @@ import (
 	"syscall"
 	"time"
 
-	veilnet "github.com/VeilNet-PTY-LTD/veilnet"
+	veilnet "github.com/veil-net/anchor"
 	"github.com/alecthomas/kong"
 )
 
