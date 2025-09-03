@@ -2,7 +2,7 @@ module github.com/veil-net/conflux
 
 go 1.25.0
 
-require github.com/veil-net/anchor v0.0.0
+require github.com/veil-net/veilnet v0.0.0
 
 require golang.zx2c4.com/wintun v0.0.0-20230126152724-0fa3db229ce2 // indirect
 
@@ -45,4 +45,4 @@ require (
 	google.golang.org/protobuf v1.36.8 // indirect
 )
 
-replace github.com/veil-net/anchor => ../anchor
+replace github.com/veil-net/veilnet => ../veilnet

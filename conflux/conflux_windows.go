@@ -14,7 +14,7 @@ import (
 	"strings"
 	"sync"
 
-	veilnet "github.com/veil-net/anchor"
+	"github.com/veil-net/veilnet"
 	"golang.org/x/sys/windows"
 	tun "golang.zx2c4.com/wireguard/tun"
 )
