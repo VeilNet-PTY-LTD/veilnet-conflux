@@ -184,7 +184,7 @@ func (c *conflux) DetectHostGateway() error {
 }
 
 func (c *conflux) AddBypassRoutes() {
-	hosts := []string{"stun.cloudflare.com", "turn.cloudflare.com", "guardian.veilnet.org"}
+	hosts := []string{"stun.cloudflare.com", "turn.cloudflare.com", "guardian.veilnet.org", "turn.veilnet.org"}
 
 	for _, host := range hosts {
 		// Resolve IP addresses
